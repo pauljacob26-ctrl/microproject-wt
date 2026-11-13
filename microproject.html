@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventEase - Event Planner</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: #f5f4fc;
+  color: #292642;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* LOGIN AND SIGNUP */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #302b63, #6554c0, #a16bd1);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 20px 60px #0004;
+}
+
+.auth-logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #6554c0;
+  margin-bottom: 25px;
+}
+
+.auth-card h1 {
+  margin-bottom: 10px;
+}
+
+.auth-card > p {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #6554c0, #a16bd1);
+  color: white;
+  padding: 13px 20px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.auth-card .primary-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.auth-switch {
+  margin-top: 20px;
+}
+
+.auth-switch a {
+  color: #6554c0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#authMessage {
+  margin-top: 15px;
+}
+
+/* HEADER AND HERO */
+
+header {
+  background: linear-gradient(120deg, #302b63, #6554c0);
+  color: white;
+  padding: 20px 7%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-actions button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: #ffffff25;
+  border: 1px solid #ffffff55;
+  color: white;
+}
+
+.hero {
+  text-align: center;
+  padding: 55px 7%;
+  background: linear-gradient(120deg, #302b63, #6554c0, #a16bd1);
+  color: white;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 46px);
+  margin-bottom: 15px;
+}
+
+.hero p {
+  line-height: 1.7;
+  max-width: 650px;
+  margin: auto;
+}
+
+.container {
+  width: 86%;
+  max-width: 1200px;
+  margin: 35px auto;
+}
+
+.section-title {
+  margin: 35px 0 18px;
+  color: #302b63;
+}
+
+/* DASHBOARD */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border-left: 5px solid #8068d8;
+  box-shadow: 0 5px 20px #302b6310;
+}
+
+.stat-card h3 {
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.stat-card strong {
+  font-size: 32px;
+  color: #6554c0;
+}
+
+/* EVENT FORM */
+
+.form-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px #302b6310;
+}
+
+.event-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.event-form input,
+.event-form select,
+.event-form textarea,
+.toolbar input,
+.toolbar select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  outline: none;
+}
+
+.event-form textarea {
+  grid-column: 1 / -1;
+  min-height: 90px;
+}
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+}
+
+/* EVENT LIST */
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 15px;
+  padding: 22px;
+  border-top: 4px solid #8068d8;
+  box-shadow: 0 5px 20px #302b6310;
+  overflow-wrap: anywhere;
+}
+
+.event-card h3 {
+  color: #302b63;
+  margin: 12px 0;
+}
+
+.event-card p {
+  color: #777;
+  margin: 9px 0;
+  line-height: 1.5;
+}
+
+.category {
+  display: inline-block;
+  padding: 6px 11px;
+  background: #eeeaff;
+  color: #6554c0;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.event-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.event-actions button {
+  padding: 8px 12px;
+  border-radius: 7px;
+}
+
+.edit-btn {
+  background: #e8e4ff;
+  color: #6554c0;
+}
+
+.delete-btn {
+  background: #ffe7e7;
+  color: #d14d4d;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  color: #777;
+}
+
+/* INSPIRATION */
+
+.inspiration-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.idea-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px #302b6310;
+}
+
+.idea-card .emoji {
+  font-size: 38px;
+}
+
+.idea-card h3 {
+  margin: 12px 0;
+  color: #302b63;
+}
+
+.idea-card p {
+  color: #777;
+  line-height: 1.6;
+}
+
+.idea-card button {
+  margin-top: 15px;
+}
+
+/* ASSISTANT */
+
+.assistant {
+  background: linear-gradient(120deg, #302b63, #6554c0);
+  color: white;
+  border-radius: 17px;
+  padding: 28px;
+}
+
+.assistant p {
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.assistant input {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.assistant button {
+  background: white;
+  color: #6554c0;
+}
+
+footer {
+  background: #292642;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin-top: 50px;
+}
+
+/* DARK MODE */
+
+body.dark {
+  background: #191827;
+  color: white;
+}
+
+body.dark .section-title {
+  color: #c5baff;
+}
+
+body.dark .stat-card,
+body.dark .form-card,
+body.dark .event-card,
+body.dark .idea-card,
+body.dark .empty {
+  background: #29273c;
+  color: white;
+}
+
+body.dark .event-card h3,
+body.dark .idea-card h3 {
+  color: #d4caff;
+}
+
+body.dark .event-card p,
+body.dark .idea-card p,
+body.dark .stat-card h3 {
+  color: #bbb;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: #333147;
+  color: white;
+  border-color: #514d69;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 850px) {
+  .event-grid,
+  .inspiration-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 600px) {
+  .stats,
+  .event-grid,
+  .inspiration-grid,
+  .event-form,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    width: 92%;
+  }
+
+  .event-form textarea,
+  .form-buttons {
+    grid-column: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<section class="auth-page" id="authPage">
+
+  <div class="auth-card">
+
+    <div class="auth-logo">🎉 EventEase</div>
+
+    <h1 id="authTitle">Welcome Back!</h1>
+
+    <p id="authSubtitle">Login to plan your perfect events.</p>
+
+    <form id="authForm">
+
+      <input
+        type="text"
+        id="authName"
+        placeholder="Your Name"
+        hidden
+      >
+
+      <input
+        type="email"
+        id="authEmail"
+        placeholder="Email Address"
+        required
+      >
+
+      <input
+        type="password"
+        id="authPassword"
+        placeholder="Password"
+        minlength="6"
+        required
+      >
+
+      <button class="primary-btn" id="authButton">
+        Login
+      </button>
+
+    </form>
+
+    <div id="authMessage"></div>
+
+    <p class="auth-switch">
+      <span id="switchText">Don't have an account?</span>
+      <a href="#" id="switchAuth">Sign Up</a>
+    </p>
+
+  </div>
+
+</section>
+
+<!-- MAIN APPLICATION -->
+
+<div id="mainApp" class="hidden">
+
+<header>
+
+  <nav class="navbar">
+
+    <div class="logo">🎉 EventEase</div>
+
+    <div class="nav-actions">
+
+      <button id="themeBtn">🌙 Theme</button>
+
+      <button id="logoutBtn">Logout ↪</button>
+
+    </div>
+
+  </nav>
+
+</header>
+
+<section class="hero">
+
+  <h1>Make Every Moment Special ✨</h1>
+
+  <p>
+    Plan, organize and manage your celebrations with EventEase.
+    Turn your ideas into unforgettable experiences!
+  </p>
+
+</section>
+
+<main class="container">
+
+  <!-- DASHBOARD -->
+
+  <h2 class="section-title">📊 Your Dashboard</h2>
+
+  <section class="stats">
+
+    <div class="stat-card">
+      <h3>Total Events</h3>
+      <strong id="totalCount">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <h3>Upcoming Events</h3>
+      <strong id="upcomingCount">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <h3>Completed Events</h3>
+      <strong id="completedCount">0</strong>
+    </div>
+
+  </section>
+
+  <!-- CREATE EVENT -->
+
+  <h2 class="section-title">➕ Create Your Event</h2>
+
+  <section class="form-card">
+
+    <form id="eventForm" class="event-form">
+
+      <input type="hidden" id="eventId">
+
+      <input
+        type="text"
+        id="eventName"
+        placeholder="Event Name"
+        maxlength="70"
+        required
+      >
+
+      <select id="eventCategory" required>
+        <option value="">Select Category</option>
+        <option>Birthday</option>
+        <option>Wedding</option>
+        <option>Workshop</option>
+        <option>Conference</option>
+        <option>Party</option>
+        <option>Other</option>
+      </select>
+
+      <input type="date" id="eventDate" required>
+
+      <input type="time" id="eventTime" required>
+
+      <input
+        type="text"
+        id="eventLocation"
+        placeholder="Event Location"
+        maxlength="100"
+      >
+
+      <input
+        type="number"
+        id="eventBudget"
+        placeholder="Budget"
+        min="0"
+        step="0.01"
+      >
+
+      <textarea
+        id="eventDescription"
+        placeholder="Event Description"
+        maxlength="500"
+      ></textarea>
+
+      <div class="form-buttons">
+
+        <button class="primary-btn" id="saveEventBtn">
+          Save Event
+        </button>
+
+        <button
+          class="primary-btn"
+          type="reset"
+          id="cancelEditBtn"
+          style="background:#777"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- MANAGE EVENTS -->
+
+  <h2 class="section-title">📅 Manage Your Events</h2>
+
+  <div class="toolbar">
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="🔍 Search events..."
+    >
+
+    <select id="filterCategory">
+      <option value="All">All Categories</option>
+      <option>Birthday</option>
+      <option>Wedding</option>
+      <option>Workshop</option>
+      <option>Conference</option>
+      <option>Party</option>
+      <option>Other</option>
+    </select>
+
+  </div>
+
+  <section class="event-grid" id="eventList">
+
+    <div class="empty">
+      No events added yet. Create your first event!
+    </div>
+
+  </section>
+
+  <!-- INSPIRATION -->
+
+  <h2 class="section-title">💡 Event Inspiration</h2>
+
+  <section class="inspiration-grid">
+
+    <article class="idea-card">
+      <div class="emoji">🎂</div>
+      <h3>Birthday Celebration</h3>
+      <p>Plan a memorable birthday with decorations, music and cake.</p>
+      <button class="primary-btn" data-template="Birthday">
+        Plan Birthday
+      </button>
+    </article>
+
+    <article class="idea-card">
+      <div class="emoji">💍</div>
+      <h3>Wedding Ceremony</h3>
+      <p>Organize a beautiful day with venue planning and guests.</p>
+      <button class="primary-btn" data-template="Wedding">
+        Plan Wedding
+      </button>
+    </article>
+
+    <article class="idea-card">
+      <div class="emoji">🎓</div>
+      <h3>Workshop</h3>
+      <p>Arrange an engaging workshop with schedules and activities.</p>
+      <button class="primary-btn" data-template="Workshop">
+        Plan Workshop
+      </button>
+    </article>
+
+  </section>
+
+  <!-- PLANNING ASSISTANT -->
+
+  <h2 class="section-title">🤖 Event Planning Assistant</h2>
+
+  <section class="assistant">
+
+    <h2>Need some event ideas?</h2>
+
+    <p>Enter your event type to get planning suggestions.</p>
+
+    <input
+      type="text"
+      id="assistantInput"
+      placeholder="Example: birthday, wedding, workshop..."
+    >
+
+    <button class="primary-btn" id="assistantBtn">
+      Get Suggestions ✨
+    </button>
+
+    <p id="assistantReply" aria-live="polite"></p>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 EventEase | Plan Beautiful Moments ✨</p>
+</footer>
+
+</div>
+
+<script>
+
+/* =================================
+   LOGIN AND SIGNUP
+================================= */
+
+const authPage = document.getElementById("authPage");
+const mainApp = document.getElementById("mainApp");
+
+const authForm = document.getElementById("authForm");
+const authName = document.getElementById("authName");
+const authEmail = document.getElementById("authEmail");
+const authPassword = document.getElementById("authPassword");
+
+const authTitle = document.getElementById("authTitle");
+const authSubtitle = document.getElementById("authSubtitle");
+const authButton = document.getElementById("authButton");
+const authMessage = document.getElementById("authMessage");
+
+const switchAuth = document.getElementById("switchAuth");
+const switchText = document.getElementById("switchText");
+
+let isSignup = false;
+let demoUsers = [];
+
+function showAuthMessage(message, color) {
+  authMessage.textContent = message;
+  authMessage.style.color = color;
+}
+
+function setAuthMode(signup) {
+
+  isSignup = signup;
+
+  authName.hidden = !signup;
+  authName.required = signup;
+
+  authTitle.textContent = signup
+    ? "Create Your Account"
+    : "Welcome Back!";
+
+  authSubtitle.textContent = signup
+    ? "Join EventEase and start planning."
+    : "Login to plan your perfect events.";
+
+  authButton.textContent = signup ? "Sign Up" : "Login";
+
+  switchText.textContent = signup
+    ? "Already have an account?"
+    : "Don't have an account?";
+
+  switchAuth.textContent = signup ? "Login" : "Sign Up";
+
+  authForm.reset();
+  showAuthMessage("", "");
+}
+
+switchAuth.addEventListener("click", function(e) {
+
+  e.preventDefault();
+
+  setAuthMode(!isSignup);
+
+});
+
+authForm.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const email = authEmail.value.trim().toLowerCase();
+  const password = authPassword.value;
+
+  if (password.length < 6) {
+    showAuthMessage("Password must have at least 6 characters.", "red");
+    return;
+  }
+
+  if (isSignup) {
+
+    const name = authName.value.trim();
+
+    if (!name) {
+      showAuthMessage("Please enter your name.", "red");
+      return;
+    }
+
+    const exists = demoUsers.some(user => user.email === email);
+
+    if (exists) {
+      showAuthMessage("Account already exists. Please login.", "red");
+      return;
+    }
+
+    demoUsers.push({
+      name: name,
+      email: email,
+      password: password
+    });
+
+    setAuthMode(false);
+    showAuthMessage("Account created! Please login.", "green");
+
+  } else {
+
+    const user = demoUsers.find(
+      item => item.email === email &&
+              item.password === password
+    );
+
+    if (!user) {
+      showAuthMessage("Invalid login. Please sign up first.", "red");
+      return;
+    }
+
+    sessionStorage.setItem("eventEaseLoggedIn", "true");
+    sessionStorage.setItem("eventEaseEmail", user.email);
+
+    authPage.classList.add("hidden");
+    mainApp.classList.remove("hidden");
+
+    loadEvents();
+    renderEvents();
+
+  }
+
+});
+
+
+/* =================================
+   LOGOUT
+================================= */
+
+document.getElementById("logoutBtn").addEventListener("click", function() {
+
+  sessionStorage.removeItem("eventEaseLoggedIn");
+  sessionStorage.removeItem("eventEaseEmail");
+
+  mainApp.classList.add("hidden");
+  authPage.classList.remove("hidden");
+
+  setAuthMode(false);
+  showAuthMessage("You have logged out successfully.", "green");
+
+});
+
+
+/* =================================
+   EVENT STORAGE
+================================= */
+
+let events = [];
+
+function storageKey() {
+  return "eventEaseEvents_" +
+    sessionStorage.getItem("eventEaseEmail");
+}
+
+function loadEvents() {
+
+  try {
+
+    events = JSON.parse(
+      localStorage.getItem(storageKey()) || "[]"
+    );
+
+    if (!Array.isArray(events)) events = [];
+
+  } catch {
+
+    events = [];
+
+  }
+
+}
+
+function saveEvents() {
+
+  localStorage.setItem(
+    storageKey(),
+    JSON.stringify(events)
+  );
+
+}
+
+
+/* =================================
+   EVENT MANAGEMENT
+================================= */
+
+const eventForm = document.getElementById("eventForm");
+const eventList = document.getElementById("eventList");
+
+const eventId = document.getElementById("eventId");
+const eventName = document.getElementById("eventName");
+const eventCategory = document.getElementById("eventCategory");
+const eventDate = document.getElementById("eventDate");
+const eventTime = document.getElementById("eventTime");
+const eventLocation = document.getElementById("eventLocation");
+const eventBudget = document.getElementById("eventBudget");
+const eventDescription = document.getElementById("eventDescription");
+
+function updateDashboard() {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcoming = events.filter(event => {
+    return new Date(event.date + "T00:00:00") >= today;
+  }).length;
+
+  document.getElementById("totalCount").textContent = events.length;
+
+  document.getElementById("upcomingCount").textContent = upcoming;
+
+  document.getElementById("completedCount").textContent =
+    events.length - upcoming;
+
+}
+
+function renderEvents() {
+
+  const search = document.getElementById("searchInput")
+    .value.toLowerCase();
+
+  const category = document.getElementById("filterCategory").value;
+
+  const filtered = events.filter(event => {
+
+    const matchesSearch =
+      event.name.toLowerCase().includes(search) ||
+      event.location.toLowerCase().includes(search);
+
+    const matchesCategory =
+      category === "All" || event.category === category;
+
+    return matchesSearch && matchesCategory;
+
+  });
+
+  eventList.replaceChildren();
+
+  if (filtered.length === 0) {
+
+    const empty = document.createElement("div");
+    empty.className = "empty";
+
+    empty.textContent = events.length
+      ? "No matching events found."
+      : "No events added yet. Create your first event!";
+
+    eventList.appendChild(empty);
+
+  }
+
+  filtered.forEach(event => {
+
+    const card = document.createElement("article");
+    card.className = "event-card";
+
+    const badge = document.createElement("span");
+    badge.className = "category";
+    badge.textContent = event.category;
+
+    const heading = document.createElement("h3");
+    heading.textContent = event.name;
+
+    card.append(badge, heading);
+
+    const details = [
+      "📅 " + event.date,
+      "⏰ " + event.time,
+      "📍 " + (event.location || "Not specified"),
+      "💰 " + (event.budget || "Not specified"),
+      "📝 " + (event.description || "No description")
+    ];
+
+    details.forEach(detail => {
+
+      const p = document.createElement("p");
+      p.textContent = detail;
+      card.appendChild(p);
+
+    });
+
+    const actions = document.createElement("div");
+    actions.className = "event-actions";
+
+    const edit = document.createElement("button");
+    edit.className = "edit-btn";
+    edit.textContent = "✏️ Edit";
+    edit.addEventListener("click", () => editEvent(event.id));
+
+    const remove = document.createElement("button");
+    remove.className = "delete-btn";
+    remove.textContent = "🗑 Delete";
+    remove.addEventListener("click", () => deleteEvent(event.id));
+
+    actions.append(edit, remove);
+    card.appendChild(actions);
+
+    eventList.appendChild(card);
+
+  });
+
+  updateDashboard();
+
+}
+
+eventForm.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const data = {
+
+    id: eventId.value || (
+      Date.now().toString() +
+      Math.random().toString(16).slice(2)
+    ),
+
+    name: eventName.value.trim(),
+    category: eventCategory.value,
+    date: eventDate.value,
+    time: eventTime.value,
+    location: eventLocation.value.trim(),
+    budget: eventBudget.value,
+    description: eventDescription.value.trim()
+
+  };
+
+  if (!data.name || !data.category || !data.date || !data.time) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  if (data.budget && Number(data.budget) < 0) {
+    alert("Budget cannot be negative.");
+    return;
+  }
+
+  const index = events.findIndex(item => item.id === data.id);
+
+  if (index >= 0) {
+    events[index] = data;
+  } else {
+    events.push(data);
+  }
+
+  saveEvents();
+
+  eventForm.reset();
+  eventId.value = "";
+
+  document.getElementById("saveEventBtn").textContent = "Save Event";
+
+  renderEvents();
+
+});
+
+function editEvent(id) {
+
+  const event = events.find(item => item.id === id);
+
+  if (!event) return;
+
+  eventId.value = event.id;
+  eventName.value = event.name;
+  eventCategory.value = event.category;
+  eventDate.value = event.date;
+  eventTime.value = event.time;
+  eventLocation.value = event.location;
+  eventBudget.value = event.budget;
+  eventDescription.value = event.description;
+
+  document.getElementById("saveEventBtn").textContent = "Update Event";
+
+  eventForm.scrollIntoView({ behavior: "smooth" });
+
+}
+
+function deleteEvent(id) {
+
+  if (!confirm("Are you sure you want to delete this event?")) {
+    return;
+  }
+
+  events = events.filter(event => event.id !== id);
+
+  saveEvents();
+  renderEvents();
+
+}
+
+document.getElementById("cancelEditBtn").addEventListener("click", function() {
+
+  eventId.value = "";
+
+  document.getElementById("saveEventBtn").textContent = "Save Event";
+
+});
+
+document.getElementById("searchInput")
+  .addEventListener("input", renderEvents);
+
+document.getElementById("filterCategory")
+  .addEventListener("change", renderEvents);
+
+
+/* =================================
+   EVENT INSPIRATION
+================================= */
+
+document.querySelectorAll("[data-template]").forEach(button => {
+
+  button.addEventListener("click", function() {
+
+    eventCategory.value = button.dataset.template;
+
+    eventName.value = button.dataset.template + " Event";
+
+    eventForm.scrollIntoView({ behavior: "smooth" });
+
+    eventName.focus();
+
+  });
+
+});
+
+
+/* =================================
+   DARK AND LIGHT THEME
+================================= */
+
+const themeBtn = document.getElementById("themeBtn");
+
+if (localStorage.getItem("eventEaseTheme") === "dark") {
+
+  document.body.classList.add("dark");
+  themeBtn.textContent = "☀️ Theme";
+
+}
+
+themeBtn.addEventListener("click", function() {
+
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+
+  localStorage.setItem(
+    "eventEaseTheme",
+    isDark ? "dark" : "light"
+  );
+
+  themeBtn.textContent = isDark ? "☀️ Theme" : "🌙 Theme";
+
+});
+
+
+/* =================================
+   EVENT PLANNING ASSISTANT
+================================= */
+
+document.getElementById("assistantBtn").addEventListener("click", function() {
+
+  const input = document.getElementById("assistantInput")
+    .value.trim().toLowerCase();
+
+  const reply = document.getElementById("assistantReply");
+
+  if (!input) {
+    reply.textContent = "Please enter an event type first.";
+    return;
+  }
+
+  if (input.includes("birthday")) {
+
+    reply.textContent =
+      "🎂 Birthday idea: Choose a theme, arrange decorations, prepare a cake and plan fun activities.";
+
+  } else if (input.includes("wedding")) {
+
+    reply.textContent =
+      "💍 Wedding idea: Plan the venue, guest list, invitations, decorations and catering.";
+
+  } else if (input.includes("workshop")) {
+
+    reply.textContent =
+      "🎓 Workshop idea: Select a topic, invite speakers, prepare materials and create a schedule.";
+
+  } else if (input.includes("party")) {
+
+    reply.textContent =
+      "🎊 Party idea: Choose a theme, music, food, decorations and enjoyable activities.";
+
+  } else if (input.includes("conference")) {
+
+    reply.textContent =
+      "💼 Conference idea: Organize speakers, sessions, registration, venue and refreshments.";
+
+  } else {
+
+    reply.textContent =
+      "✨ Start with an event goal, choose a date and venue, prepare a budget and create a schedule.";
+
+  }
+
+});
+
+
+/* =================================
+   LEAVE PAGE CONFIRMATION
+================================= */
+
+window.addEventListener("beforeunload", function(event) {
+
+  // Only warn when the user is inside the dashboard
+  const loggedIn =
+    sessionStorage.getItem("eventEaseLoggedIn") === "true";
+
+  if (loggedIn) {
+
+    event.preventDefault();
+
+    // Browser displays its own confirmation message
+    event.returnValue = "";
+
+  }
+
+});
+
+
+/* =================================
+   INITIAL PAGE STATE
+================================= */
+
+if (sessionStorage.getItem("eventEaseLoggedIn") === "true") {
+
+  authPage.classList.add("hidden");
+  mainApp.classList.remove("hidden");
+
+  loadEvents();
+  renderEvents();
+
+}
+
+</script>
+
+</body>
+</html>
